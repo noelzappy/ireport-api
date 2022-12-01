@@ -2,7 +2,7 @@
 
 The backend API of the iReport project. A project to help track corruption in the country(Ghana)
 
-### Created by: [Emmanuel Yeboah](https://noelzappy.gihub.io)
+### Created by: [Emmanuel Yeboah](https://noelzappy.github.io)
 
 ## Installation & Setup Guide for Contributors
 
