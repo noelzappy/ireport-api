@@ -132,7 +132,7 @@ The environment variables can be found and modified in the `.env` file. They com
 PORT=3000
 
 # URL of the Mongo DB
-MONGODB_URL=mongodb://127.0.0.1:27017/node-boilerplate
+MONGODB_URL=mongodb+srv://zappy:<password>@ireport.33zzpam.mongodb.net/ireport?retryWrites=true&w=majority
 
 # JWT
 # JWT secret key
