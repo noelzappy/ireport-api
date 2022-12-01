@@ -44,6 +44,16 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -62,6 +72,16 @@ userSchema.plugin(paginate);
  */
 userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
+  return !!user;
+};
+
+/**
+ * Check if username is taken
+ * @param {string} username - The user's username
+ * @returns {Promise<boolean>}
+ */
+userSchema.isUsernameTaken = async function (username, excludeUserId) {
+  const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
   return !!user;
 };
 
