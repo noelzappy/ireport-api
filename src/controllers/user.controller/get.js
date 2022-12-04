@@ -19,7 +19,13 @@ const getUser = catchAsync(async (req, res) => {
   res.send(user);
 });
 
+const getMe = catchAsync(async (req, res) => {
+  const user = await userService.getUserById(req.user.id);
+  res.send(user);
+});
+
 module.exports = {
   getUsers,
   getUser,
+  getMe,
 };

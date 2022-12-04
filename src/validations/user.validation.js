@@ -45,10 +45,21 @@ const deleteUser = {
   }),
 };
 
+const updateMe = {
+  body: Joi.object()
+    .keys({
+      email: Joi.string().email(),
+      password: Joi.string().custom(password),
+      name: Joi.string(),
+    })
+    .min(1),
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  updateMe,
 };
