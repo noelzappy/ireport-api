@@ -17,7 +17,7 @@ const loginUserWithEmailAndPassword = async (email, password) => {
 };
 
 const loginWithUsernameAndPassword = async (username, password) => {
-  const user = await userService.getUserByUsername(username);
+  const user = await userService.getUserByUserName(username);
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect username or password');
   }

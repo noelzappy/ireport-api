@@ -75,8 +75,12 @@ const deleteUserById = async (userId) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  await user.remove();
-  return user;
+  // await user.remove();
+  return true;
+};
+
+const getUserByUserName = async (username) => {
+  return User.findOne({ username });
 };
 
 module.exports = {
@@ -86,4 +90,5 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
+  getUserByUserName,
 };

@@ -41,7 +41,7 @@ cp .env.example .env
 - [Logging](#logging)
 - [Custom Mongoose Plugins](#custom-mongoose-plugins)
 - [Linting](#linting)
-- [Contributing](#contributing)
+- [API Collection](#collection)
 
 ## Features
 
@@ -406,9 +406,10 @@ To prevent a certain file or directory from being linted, add it to `.eslintigno
 
 To maintain a consistent coding style across different IDEs, the project contains `.editorconfig`
 
-<!-- ## Contributing
+## API Collection
 
-Contributions are more than welcome! Please check out the [contributing guide](CONTRIBUTING.md). -->
+This Link contains the API collection for Postman.
+[Postman Collection](https://www.postman.com/lessons-a/workspace/ireport/collection/17049797-63068f37-348e-41ee-b854-073e84dec30f?action=share&creator=17049797)
 
 ## License
 

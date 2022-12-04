@@ -49,6 +49,7 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
       unique: true,
+      lowercase: true,
     },
     isVerified: {
       type: Boolean,
@@ -100,6 +101,11 @@ userSchema.pre('save', async function (next) {
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8);
   }
+
+  if (user.isModified('email')) {
+    user.isEmailVerified = false;
+  }
+
   next();
 });
 
