@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 import passport from 'passport';
 import { roleRights } from '@/config/constants';
 
-const AUTH_ERR_MSG = 'Wrong authentication token';
+const AUTH_ERR_MSG = 'Please authenticate';
 
 const verifyCallback = (req: RequestWithUser, resolve, reject, requiredRights) => async (err, user, info) => {
   if (err || info || !user) {
