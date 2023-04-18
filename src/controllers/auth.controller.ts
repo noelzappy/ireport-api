@@ -14,6 +14,9 @@ export class AuthController {
     const userData: CreateUserDto = req.body;
     const { user, tokenData } = await this.auth.signup(userData);
 
+    // TODO: Send email to user with token to verify email address
+    // Do not send token in response
+
     res.status(httpStatus.CREATED).send({
       user,
       refresh: tokenData.refreshToken,
