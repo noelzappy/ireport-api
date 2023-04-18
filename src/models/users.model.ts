@@ -15,6 +15,7 @@ export class UserModel extends Model<User, UserCreationAttributes> implements Us
   public id_type: string;
   public is_verified: boolean;
   public is_email_verified: boolean;
+  public role: 'admin' | 'user';
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -69,6 +70,11 @@ export default function (sequelize: Sequelize): typeof UserModel {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+      },
+      role: {
+        allowNull: false,
+        type: DataTypes.ENUM('admin', 'user'),
+        defaultValue: 'user',
       },
     },
     {

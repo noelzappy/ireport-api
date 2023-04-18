@@ -2,31 +2,41 @@ import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength } from 'class-valid
 
 export class CreateUserDto {
   @IsEmail()
+  @IsNotEmpty()
   public email: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
-  @MaxLength(32)
   public name: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(9)
-  @MaxLength(32)
+  @MinLength(6)
   public password: string;
 }
 
 export class UpdateUserDto {
   @IsString()
-  @IsNotEmpty()
   @MinLength(9)
-  @MaxLength(32)
   public password: string;
 
   @IsString()
-  @IsNotEmpty()
   @MinLength(2)
-  @MaxLength(32)
   public name: string;
+}
+
+export class LoginUserDto {
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public password: string;
+}
+export class LogoutUserDto {
+  @IsString()
+  @IsNotEmpty()
+  public refreshToken: string;
 }

@@ -10,4 +10,5 @@ export interface User {
   id_type?: string;
   is_verified?: boolean;
   is_email_verified?: boolean;
+  role: 'admin' | 'user';
 }

@@ -1,45 +1,41 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, LogoutUserDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/auth.service';
+import catchAsync from '@/utils/catchAsync';
+import httpStatus from 'http-status';
 
 export class AuthController {
   public auth = Container.get(AuthService);
 
-  public signUp = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.auth.signup(userData);
+  public signUp = catchAsync(async (req: Request, res: Response) => {
+    const userData: CreateUserDto = req.body;
+    const { user, tokenData } = await this.auth.signup(userData);
 
-      res.status(201).json({ data: signUpUserData, message: 'signup' });
-    } catch (error) {
-      next(error);
-    }
-  };
+    res.status(httpStatus.CREATED).send({
+      user,
+      refresh: tokenData.refreshToken,
+      access: tokenData.accessToken,
+    });
+  });
 
-  public logIn = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userData: CreateUserDto = req.body;
-      const { cookie, findUser } = await this.auth.login(userData);
+  public logIn = catchAsync(async (req: Request, res: Response) => {
+    const userData: CreateUserDto = req.body;
+    const { user, tokenData } = await this.auth.login(userData);
 
-      res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: findUser, message: 'login' });
-    } catch (error) {
-      next(error);
-    }
-  };
+    res.status(httpStatus.OK).send({
+      user,
+      refresh: tokenData.refreshToken,
+      access: tokenData.accessToken,
+    });
+  });
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try {
-      const userData: User = req.user;
-      const logOutUserData: User = await this.auth.logout(userData);
-
-      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutUserData, message: 'logout' });
-    } catch (error) {
-      next(error);
-    }
-  };
+  public logOut = catchAsync(async (req: RequestWithUser, res: Response) => {
+    const userData: User = req.user;
+    const body: LogoutUserDto = req.body;
+    await this.auth.logout(userData, body.refreshToken);
+    res.sendStatus(httpStatus.NO_CONTENT);
+  });
 }

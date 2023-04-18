@@ -1,7 +1,9 @@
 import Sequelize from 'sequelize';
 import { NODE_ENV, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from '@config';
-import UserModel from '@models/users.model';
 import { logger } from '@utils/logger';
+
+import UserModel from '@models/users.model';
+import TokenModel from '@/models/tokens.model';
 
 const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   dialect: 'mysql',
@@ -19,9 +21,9 @@ const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
     max: 5,
   },
   logQueryParameters: NODE_ENV === 'development',
-  logging: (query, time) => {
-    logger.info(time + 'ms' + ' ' + query);
-  },
+  // logging: (query, time) => {
+  //   logger.info(time + 'ms' + ' ' + query);
+  // },
   benchmark: true,
 });
 
@@ -29,6 +31,7 @@ sequelize.authenticate();
 
 export const DB = {
   Users: UserModel(sequelize),
+  Tokens: TokenModel(sequelize),
   sequelize, // connection instance (RAW queries)
   Sequelize, // library
 };
