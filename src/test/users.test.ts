@@ -5,9 +5,9 @@ import { App } from '@/app';
 import { CreateUserDto } from '@dtos/users.dto';
 import { UserRoute } from '@routes/users.route';
 
-afterAll(async () => {
-  await new Promise<void>(resolve => setTimeout(() => resolve(), 5000));
-});
+// afterAll(async () => {
+//   await new Promise<void>(resolve => setTimeout(() => resolve(), 5000));
+// });
 
 describe('Testing Users', () => {
   describe('[GET] /users', () => {
@@ -63,6 +63,7 @@ describe('Testing Users', () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4!',
+        name: 'test',
       };
 
       const usersRoute = new UserRoute();
@@ -73,6 +74,7 @@ describe('Testing Users', () => {
         id: 1,
         email: userData.email,
         password: await bcrypt.hash(userData.password, 10),
+        name: userData.name,
       });
 
       (Sequelize as any).authenticate = jest.fn();
@@ -87,6 +89,7 @@ describe('Testing Users', () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
         password: '1q2w3e4r!',
+        name: 'test',
       };
 
       const usersRoute = new UserRoute();
