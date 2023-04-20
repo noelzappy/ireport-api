@@ -15,5 +15,6 @@ export const {
   MAIL_FROM,
   MAIL_USER,
   MAIL_PASSWORD,
+  CLIENT_URL,
 } = process.env;
 export const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASE } = process.env;

@@ -26,14 +26,26 @@ export class TokenService {
     return { token: sign(dataStoredInToken, SECRET_KEY) };
   }
 
-  public async verifyToken(token: string): Promise<TokenPayload> {
-    const decoded = verify(token, SECRET_KEY) as any;
+  public async saveToken(token: string, userId: number, type: TokenTypes): Promise<TokenPayload> {
+    const tokenDoc = await DB.Tokens.create({
+      token,
+      user_id: userId,
+      type,
+    });
+
+    return tokenDoc;
+  }
+
+  public async verifyToken(token: string, type: TokenTypes): Promise<TokenPayload> {
+    const decoded = verify(token, SECRET_KEY) as unknown as DataStoredInToken;
+
+    if (decoded.exp < moment().unix()) throw new Error('Token expired');
 
     const tokenDoc = await DB.Tokens.findOne({
       where: {
         token,
         user_id: decoded.sub,
-        type: decoded.type,
+        type,
       },
     });
 
@@ -66,11 +78,7 @@ export class TokenService {
       TokenTypes.REFRESH,
     );
 
-    const tokenDoc = await DB.Tokens.create({
-      token: refreshToken.token,
-      user_id: user.id,
-      type: TokenTypes.REFRESH,
-    });
+    const tokenDoc = await this.saveToken(refreshToken.token, user.id, TokenTypes.REFRESH);
 
     return { accessToken, refreshToken, tokenDoc };
   }
@@ -85,11 +93,7 @@ export class TokenService {
       TokenTypes.RESET_PASSWORD,
     );
 
-    await DB.Tokens.create({
-      token: token.token,
-      user_id: user.id,
-      type: TokenTypes.RESET_PASSWORD,
-    });
+    await this.saveToken(token.token, user.id, TokenTypes.RESET_PASSWORD);
 
     return token;
   }
@@ -104,11 +108,7 @@ export class TokenService {
       TokenTypes.VERIFY_EMAIL,
     );
 
-    await DB.Tokens.create({
-      token: token.token,
-      user_id: user.id,
-      type: TokenTypes.VERIFY_EMAIL,
-    });
+    await this.saveToken(token.token, user.id, TokenTypes.VERIFY_EMAIL);
 
     return token;
   }

@@ -1,6 +1,5 @@
 import { Request } from 'express';
 import { User } from '@interfaces/users.interface';
-import { TokenModel } from '@/models/tokens.model';
 
 export interface DataStoredInToken {
   sub: number;
@@ -34,5 +33,5 @@ export interface TokenPayload {
 export interface TokenObj {
   accessToken: TokenData;
   refreshToken: TokenData;
-  tokenDoc: TokenModel;
+  tokenDoc: TokenPayload;
 }

@@ -40,3 +40,25 @@ export class LogoutUserDto {
   @IsNotEmpty()
   public refreshToken: string;
 }
+
+export class ForgotPasswordDto {
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+}
+
+export class ResetPasswordDto {
+  @IsString()
+  @IsNotEmpty()
+  public token: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public password: string;
+}
+
+export class VerifyEmailDto {
+  @IsString()
+  @IsNotEmpty()
+  public token: string;
+}

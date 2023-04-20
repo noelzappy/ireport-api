@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateUserDto, LogoutUserDto } from '@dtos/users.dto';
+import { CreateUserDto, ForgotPasswordDto, LogoutUserDto, ResetPasswordDto, VerifyEmailDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/auth.service';
@@ -39,6 +39,39 @@ export class AuthController {
     const userData: User = req.user;
     const body: LogoutUserDto = req.body;
     await this.auth.logout(userData, body.refreshToken);
+    res.sendStatus(httpStatus.NO_CONTENT);
+  });
+
+  public refreshAuth = catchAsync(async (req: Request, res: Response) => {
+    const body: LogoutUserDto = req.body;
+    const tokenData = await this.auth.refreshAuth(body.refreshToken);
+    res.status(httpStatus.OK).send({
+      refresh: tokenData.refreshToken,
+      access: tokenData.accessToken,
+    });
+  });
+
+  public resetPassword = catchAsync(async (req: Request, res: Response) => {
+    const body: ResetPasswordDto = req.body;
+    await this.auth.resetPassword(body.token, body.password);
+    res.sendStatus(httpStatus.NO_CONTENT);
+  });
+
+  public verifyEmail = catchAsync(async (req: Request, res: Response) => {
+    const body: VerifyEmailDto = req.body;
+    await this.auth.verifyEmail(body.token);
+    res.sendStatus(httpStatus.NO_CONTENT);
+  });
+
+  public forgotPassword = catchAsync(async (req: Request, res: Response) => {
+    const body: ForgotPasswordDto = req.body;
+    await this.auth.forgotPassword(body.email);
+    res.sendStatus(httpStatus.NO_CONTENT);
+  });
+
+  public sendEmailVerification = catchAsync(async (req: RequestWithUser, res: Response) => {
+    const body: ForgotPasswordDto = req.body;
+    await this.auth.resendVerificationEmail(body.email);
     res.sendStatus(httpStatus.NO_CONTENT);
   });
 }
