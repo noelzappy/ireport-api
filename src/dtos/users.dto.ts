@@ -18,9 +18,9 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto {
-  // @IsString()
-  // @MinLength(9)
-  // public password: string;
+  @IsString()
+  @MinLength(6)
+  public password: string;
 
   @IsString()
   @MinLength(2)

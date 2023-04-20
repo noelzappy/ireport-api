@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { Container } from 'typedi';
-import { CreateUserDto } from '@dtos/users.dto';
+import { UpdateUserDto } from '@dtos/users.dto';
 // import { User } from '@interfaces/users.interface';
 import { UserService } from '@services/users.service';
 import catchAsync from '@/utils/catchAsync';
@@ -17,7 +17,7 @@ export class UserController {
   });
 
   public updateMe = catchAsync(async (req: RequestWithUser, res: Response) => {
-    const userData: CreateUserDto = req.body;
+    const userData: UpdateUserDto = req.body;
     const user = await this.user.updateUser(req.user.id, userData);
 
     res.status(httpStatus.OK).send(user);
