@@ -32,8 +32,11 @@ export class UserService {
     const findUser: User = await DB.Users.findByPk(userId);
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
-    const hashedPassword = await hash(userData.password, 10);
-    await DB.Users.update({ ...userData, password: hashedPassword }, { where: { id: userId } });
+    if (userData.password) {
+      const hashedPassword = await hash(userData.password, 10);
+      userData.password = hashedPassword;
+    }
+    await DB.Users.update({ ...userData }, { where: { id: userId } });
 
     const updateUser: User = await DB.Users.findByPk(userId);
     return updateUser;

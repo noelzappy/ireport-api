@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
-import { User } from '@interfaces/users.interface';
+import { IDTypes, User } from '@interfaces/users.interface';
 
 export type UserCreationAttributes = Optional<User, 'id'>;
 
@@ -12,7 +12,7 @@ export class UserModel extends Model<User, UserCreationAttributes> implements Us
   public last_name: string;
   public phone: string;
   public id_number: string;
-  public id_type: string;
+  public id_type: IDTypes;
   public is_verified: boolean;
   public is_email_verified: boolean;
   public role: 'admin' | 'user';

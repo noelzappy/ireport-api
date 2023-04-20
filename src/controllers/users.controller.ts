@@ -1,45 +1,25 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { RequestWithUser } from '@interfaces/auth.interface';
 import { Container } from 'typedi';
 import { CreateUserDto } from '@dtos/users.dto';
-import { User } from '@interfaces/users.interface';
+// import { User } from '@interfaces/users.interface';
 import { UserService } from '@services/users.service';
 import catchAsync from '@/utils/catchAsync';
+import httpStatus from 'http-status';
 
 export class UserController {
   public user = Container.get(UserService);
 
-  public getUsers = catchAsync(async (req: Request, res: Response) => {
-    const findAllUsersData: User[] = await this.user.findAllUser();
+  public getMe = catchAsync(async (req: RequestWithUser, res: Response) => {
+    const user = await this.user.findUserById(req.user.id);
 
-    res.status(200).json({ data: findAllUsersData, message: 'findAll' });
+    res.status(httpStatus.OK).send(user);
   });
 
-  public getUserById = catchAsync(async (req: Request, res: Response) => {
-    const userId = Number(req.params.id);
-    const findOneUserData: User = await this.user.findUserById(userId);
-
-    res.status(200).json({ data: findOneUserData, message: 'findOne' });
-  });
-
-  public createUser = catchAsync(async (req: Request, res: Response) => {
+  public updateMe = catchAsync(async (req: RequestWithUser, res: Response) => {
     const userData: CreateUserDto = req.body;
-    const createUserData: User = await this.user.createUser(userData);
+    const user = await this.user.updateUser(req.user.id, userData);
 
-    res.status(201).json({ data: createUserData, message: 'created' });
-  });
-
-  public updateUser = catchAsync(async (req: Request, res: Response) => {
-    const userId = Number(req.params.id);
-    const userData: CreateUserDto = req.body;
-    const updateUserData: User = await this.user.updateUser(userId, userData);
-
-    res.status(200).json({ data: updateUserData, message: 'updated' });
-  });
-
-  public deleteUser = catchAsync(async (req: Request, res: Response) => {
-    const userId = Number(req.params.id);
-    const deleteUserData: User = await this.user.deleteUser(userId);
-
-    res.status(200).json({ data: deleteUserData, message: 'deleted' });
+    res.status(httpStatus.OK).send(user);
   });
 }
