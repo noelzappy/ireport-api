@@ -9,13 +9,13 @@ export class UserModel extends Model<User, UserCreationAttributes> implements Us
   public email: string;
   public password: string;
   public name: string;
-  public first_name: string;
-  public last_name: string;
+  public firstName: string;
+  public lastName: string;
   public phone: string;
-  public id_number: string;
-  public id_type: IDTypes;
-  public is_verified: boolean;
-  public is_email_verified: boolean;
+  public idNumber: string;
+  public idType: IDTypes;
+  public isVerified: boolean;
+  public isEmailVerified: boolean;
   public role: 'admin' | 'user';
 
   toJSON() {
@@ -55,11 +55,11 @@ export default function (sequelize: Sequelize): typeof UserModel {
         allowNull: false,
         type: DataTypes.STRING(45),
       },
-      first_name: {
+      firstName: {
         allowNull: true,
         type: DataTypes.STRING(45),
       },
-      last_name: {
+      lastName: {
         allowNull: true,
         type: DataTypes.STRING(45),
       },
@@ -67,20 +67,20 @@ export default function (sequelize: Sequelize): typeof UserModel {
         allowNull: true,
         type: DataTypes.STRING(45),
       },
-      id_number: {
+      idNumber: {
         allowNull: true,
         type: DataTypes.STRING(45),
       },
-      id_type: {
+      idType: {
         allowNull: true,
         type: DataTypes.STRING(45),
       },
-      is_verified: {
+      isVerified: {
         allowNull: true,
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      is_email_verified: {
+      isEmailVerified: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,

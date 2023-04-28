@@ -5,13 +5,13 @@ export interface User {
   email: string;
   password: string;
   name: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   phone?: string;
-  id_number?: string;
-  id_type?: IDTypes;
-  is_verified?: boolean;
-  is_email_verified?: boolean;
+  idNumber?: string;
+  idType?: IDTypes;
+  isVerified?: boolean;
+  isEmailVerified?: boolean;
   role: (typeof roles)[number];
 }
 

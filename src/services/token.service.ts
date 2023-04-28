@@ -29,7 +29,7 @@ export class TokenService {
   public async saveToken(token: string, userId: number, type: TokenTypes): Promise<TokenPayload> {
     const tokenDoc = await DB.Tokens.create({
       token,
-      user_id: userId,
+      userId,
       type,
     });
 
@@ -44,7 +44,7 @@ export class TokenService {
     const tokenDoc = await DB.Tokens.findOne({
       where: {
         token,
-        user_id: decoded.sub,
+        userId: decoded.sub,
         type,
       },
     });

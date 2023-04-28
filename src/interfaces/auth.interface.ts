@@ -27,7 +27,7 @@ export interface TokenPayload {
   token: string;
   id: number;
   type: TokenTypes;
-  user_id: number;
+  userId: number;
 }
 
 export interface TokenObj {

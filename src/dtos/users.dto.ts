@@ -28,11 +28,11 @@ export class UpdateUserDto {
 
   @IsString()
   @MinLength(2)
-  public first_name: string;
+  public firstName: string;
 
   @IsString()
   @MinLength(2)
-  public last_name: string;
+  public lastName: string;
 
   @IsString()
   @MinLength(10)
@@ -40,11 +40,11 @@ export class UpdateUserDto {
 
   @IsString()
   @MinLength(7)
-  public id_number: string;
+  public idNumber: string;
 
   @IsString()
   @MinLength(2)
-  public id_type: IDTypes;
+  public idType: IDTypes;
 }
 
 export class LoginUserDto {

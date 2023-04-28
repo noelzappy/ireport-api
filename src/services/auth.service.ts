@@ -48,7 +48,7 @@ export class AuthService {
   }
 
   public async logout(userData: User, refreshToken: string): Promise<void> {
-    await DB.Tokens.destroy({ where: { token: refreshToken, type: TokenTypes.REFRESH, user_id: userData.id } });
+    await DB.Tokens.destroy({ where: { token: refreshToken, type: TokenTypes.REFRESH, userId: userData.id } });
   }
 
   public async refreshAuth(refreshToken: string): Promise<TokenObj> {
@@ -56,7 +56,7 @@ export class AuthService {
 
     if (!verifiedToken) throw new HttpException(httpStatus.UNAUTHORIZED, 'Invalid token');
 
-    const findUser: User = await DB.Users.findByPk(verifiedToken.user_id);
+    const findUser: User = await DB.Users.findByPk(verifiedToken.userId);
 
     if (!findUser) throw new HttpException(httpStatus.UNAUTHORIZED, 'Invalid token');
 
@@ -70,11 +70,11 @@ export class AuthService {
 
     if (!verifiedToken) throw new HttpException(httpStatus.UNAUTHORIZED, 'Invalid token');
 
-    const findUser: User = await DB.Users.findByPk(verifiedToken.user_id);
+    const findUser: User = await DB.Users.findByPk(verifiedToken.userId);
 
     if (!findUser) throw new HttpException(httpStatus.UNAUTHORIZED, 'Invalid token');
 
-    await DB.Users.update({ is_email_verified: true }, { where: { id: findUser.id } });
+    await DB.Users.update({ isEmailVerified: true }, { where: { id: findUser.id } });
   }
 
   public async resetPassword(token: string, password: string): Promise<void> {
@@ -82,7 +82,7 @@ export class AuthService {
 
     if (!verifiedToken) throw new HttpException(httpStatus.UNAUTHORIZED, 'Invalid token');
 
-    const findUser: User = await DB.Users.findByPk(verifiedToken.user_id);
+    const findUser: User = await DB.Users.findByPk(verifiedToken.userId);
 
     if (!findUser) throw new HttpException(httpStatus.UNAUTHORIZED, 'Invalid token');
 

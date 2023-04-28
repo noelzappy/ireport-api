@@ -8,7 +8,7 @@ export class TokenModel extends Model<TokenPayload, TokenCreationAttributes> imp
   declare id: number;
   public token: string;
   public type: TokenTypes;
-  public user_id: number;
+  public userId: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -30,7 +30,7 @@ export default function (sequelize: Sequelize): typeof TokenModel {
         allowNull: false,
         type: DataTypes.STRING(45),
       },
-      user_id: {
+      userId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
