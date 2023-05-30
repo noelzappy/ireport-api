@@ -4,7 +4,7 @@ iReport is a web-based platform designed to track and collect data on corruption
 
 To ensure the accuracy and reliability of such reports, members of the platform are encouraged to verify the submitted posts by either upvoting or downvoting them based on their own experiences with the respective institutions. This verification process helps to validate the credibility of reports submitted, thereby facilitating the creation of a more comprehensive and trustworthy database on the country's public institutions.
 
-The data collected on the platform is used to calculate the transparency levels of different public institutions in Ghana. This information is then made available to the public, including government agencies, civil society organizations, and the media, to help promote greater accountability, transparency, and good governance. 
+The data collected on the platform is used to calculate the transparency levels of different public institutions in Ghana. This information is then made available to the public, including government agencies, civil society organizations, and the media, to help promote greater accountability, transparency, and good governance.
 
 Through the active participation of users, iReport aims to create a reliable and comprehensive database that can help promote positive change in Ghana, by providing greater insight into the state of public institutions, which is essential for promoting good governance, economic development, and social welfare.
 
@@ -46,6 +46,7 @@ cp .env.example .env.test.local
 - [Authorization](#authorization)
 - [Logging](#logging)
 - [Linting](#linting)
+- [API Collection](#api-collection)
 - [Contributing](#contributing)
 
 ## Features
@@ -117,7 +118,7 @@ yarn prettier
 yarn prettier:fix
 ```
 
-## Environment Variables 
+## Environment Variables
 ##### This may be updated as development continues.
 
 The environment variables can be found and modified in the `.env.<env>.<tld>` file. They come with these default values:
@@ -154,7 +155,7 @@ ORIGIN = *
 CREDENTIALS = true
 ```
 
-## Project Structure 
+## Project Structure
 This may change overtime as new folders/files may be introduced
 
 ```
@@ -383,6 +384,12 @@ To maintain a consistent coding style across different IDEs, the project contain
 ## Contributing
 
 Contributions are more than welcome! Please check out the [contributing guide](CONTRIBUTING.md).
+
+## API Collection
+
+Find the API collection here:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/edromart/workspace/ireport/collection/17049797-2e8bdeb0-6ae2-48ca-8d3f-4d8d86db93c2?action=share&creator=17049797)
 
 ## License
 
