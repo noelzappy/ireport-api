@@ -24,6 +24,7 @@ const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   // logging: (query, time) => {
   //   logger.info(time + 'ms' + ' ' + query);
   // },
+
   benchmark: true,
 });
 
