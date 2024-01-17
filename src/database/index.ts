@@ -6,7 +6,7 @@ import UserModel from '@models/users.model';
 import TokenModel from '@/models/tokens.model';
 
 const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
-  dialect: 'mysql',
+  dialect: 'postgres',
   host: DB_HOST,
   port: parseInt(DB_PORT),
   timezone: '+00:00',
@@ -21,9 +21,9 @@ const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
     max: 5,
   },
   logQueryParameters: NODE_ENV === 'development',
-  // logging: (query, time) => {
-  //   logger.info(time + 'ms' + ' ' + query);
-  // },
+  logging: (query, time) => {
+    logger.info(time + 'ms' + ' ' + query);
+  },
 
   benchmark: true,
 });

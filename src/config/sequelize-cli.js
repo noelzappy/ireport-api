@@ -7,9 +7,9 @@ module.exports = {
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  port: DB_PORT,
+  port: parseInt(DB_PORT),
   host: DB_HOST,
-  dialect: 'mysql',
+  dialect: 'postgres',
   migrationStorageTableName: 'sequelize_migrations',
   seederStorageTableName: 'sequelize_seeds',
 };
