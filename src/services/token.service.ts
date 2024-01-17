@@ -14,16 +14,21 @@ type ExpiresIn = {
 @Service()
 export class TokenService {
   public async createToken(user: User, expiresIn: ExpiresIn, type: TokenTypes): Promise<TokenData> {
+    const exp = moment()
+      .add(expiresIn.value, expiresIn.unit as moment.unitOfTime.DurationConstructor)
+      .unix();
+
     const dataStoredInToken: DataStoredInToken = {
       sub: user.id,
       iat: moment().unix(),
-      exp: moment()
-        .add(expiresIn.value, expiresIn.unit as moment.unitOfTime.DurationConstructor)
-        .unix(),
+      exp,
       type,
     };
 
-    return { token: sign(dataStoredInToken, SECRET_KEY) };
+    return {
+      token: sign(dataStoredInToken, SECRET_KEY),
+      expiresIn: exp,
+    };
   }
 
   public async saveToken(token: string, userId: number, type: TokenTypes): Promise<TokenPayload> {

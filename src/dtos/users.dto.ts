@@ -8,7 +8,6 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(2)
   public name: string;
 
   @IsString()
@@ -19,31 +18,21 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
   @IsString()
-  @MinLength(6)
-  public password: string;
-
-  @IsString()
-  @MinLength(2)
   public name: string;
 
   @IsString()
-  @MinLength(2)
   public firstName: string;
 
   @IsString()
-  @MinLength(2)
   public lastName: string;
 
   @IsString()
-  @MinLength(10)
   public phone: string;
 
   @IsString()
-  @MinLength(7)
   public idNumber: string;
 
   @IsString()
-  @MinLength(2)
   public idType: IDTypes;
 }
 

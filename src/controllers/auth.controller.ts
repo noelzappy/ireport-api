@@ -15,12 +15,12 @@ export class AuthController {
     const { user, tokenData } = await this.auth.signup(userData);
 
     // TODO: Send email to user with token to verify email address
-    // Do not send token in response
+    // Do not send token in response but wait for user to verify email address
 
     res.status(httpStatus.CREATED).send({
       user,
-      refresh: tokenData.refreshToken,
       access: tokenData.accessToken,
+      refresh: tokenData.refreshToken,
     });
   });
 
@@ -46,8 +46,8 @@ export class AuthController {
     const body: LogoutUserDto = req.body;
     const tokenData = await this.auth.refreshAuth(body.refreshToken);
     res.status(httpStatus.OK).send({
-      refresh: tokenData.refreshToken,
       access: tokenData.accessToken,
+      refresh: tokenData.refreshToken,
     });
   });
 

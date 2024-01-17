@@ -12,7 +12,6 @@ export class UserController {
 
   public getMe = catchAsync(async (req: RequestWithUser, res: Response) => {
     const user = await this.user.findUserById(req.user.id);
-
     res.status(httpStatus.OK).send(user);
   });
 
